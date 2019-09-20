@@ -16,12 +16,17 @@ def main():
     drive_service = build('drive', 'v3', credentials=creds)
     docs_service = build('docs', 'v1', credentials=creds)
 
-    #list_files(service = drive_service)
+    #Lista de archivos
+    list_files(service = drive_service)
+
+    #Descargar un archivo
     #download_file(service = drive_service, file_id= '1XP9pfqmewIsIANMJJNMBkXnWG5HYJs_3')
-    get_title(docs_service)
+    
+    #Obtener el contenido en json de documento google
+    #get_document(docs_service)
 
 
-def get_title(service):
+def get_document(service):
     # Retrieve the documents contents from the Docs service.
     document = service.documents().get(documentId='1Cc-y40_VYprQWIWVpOfXVVK5gYsPVn8cD6mDaEbibIg').execute()
     print('The title of the document is: {}'.format(document.get('title')))

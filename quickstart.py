@@ -52,6 +52,10 @@ def main():
 
     drive_service.list_files()
 
+    docs_service.insert_text('1eU_CmQVpvW7SDSitSeNPxcG02ysU_IC8UuZc_nnD1pU');
+
+    #docs_service.create_document()
+
     #Lista de archivos
     #list_files(service = auth.drive_service)
 
@@ -74,7 +78,7 @@ class DocsService():
         parsed = document.get('body')
         print(json.dumps(parsed, indent=4, sort_keys=True))
 
-    def create_document():
+    def create_document(self):
         title = 'New document'
         body = {
             'title': title
@@ -83,6 +87,22 @@ class DocsService():
             .create(body=body).execute()
         print('Created document with title: {0}'.format(
             doc.get('title')))
+
+    def insert_text(self,document_id):
+        requests = [
+            {
+                'insertText': {
+                    'location': {
+                        'index': 9,
+                    },
+                    'text': 'Hola Mundo'
+                }
+            }
+        ]
+
+        result = self.service.documents().batchUpdate(
+            documentId=document_id, body={'requests': requests}).execute()
+
 
 class DriveService():
     def __init__(self,credentials):
